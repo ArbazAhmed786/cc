@@ -100,9 +100,7 @@ app.post("/search", (req, res) => {
 
   request(options, function(error, response, body) {
     if (error) throw new Error(error);
-
-    console.log(body);
-    console.log(body.latest_stat_by_country[0].country_name);
+    // console.log(body);
 
     res.render("search", {
       country: body.country,
@@ -114,7 +112,7 @@ app.post("/search", (req, res) => {
       trc: body.latest_stat_by_country[0].total_recovered,
       sc: body.latest_stat_by_country[0].serious_critical,
       tcpm: body.latest_stat_by_country[0].total_cases_per1m,
-      rd: body.latest_stat_by_country[0].record_date,
+      rd: body.latest_stat_by_country[0].record_date
     });
   });
 });
