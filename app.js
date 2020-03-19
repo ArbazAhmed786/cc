@@ -101,19 +101,25 @@ app.post("/search", (req, res) => {
   request(options, function(error, response, body) {
     if (error) throw new Error(error);
     // console.log(body);
-
-    res.render("search", {
-      country: body.country,
-      tc: body.latest_stat_by_country[0].total_cases,
-      nc: body.latest_stat_by_country[0].new_cases,
-      ac: body.latest_stat_by_country[0].active_cases,
-      td: body.latest_stat_by_country[0].total_deaths,
-      nd: body.latest_stat_by_country[0].new_deaths,
-      trc: body.latest_stat_by_country[0].total_recovered,
-      sc: body.latest_stat_by_country[0].serious_critical,
-      tcpm: body.latest_stat_by_country[0].total_cases_per1m,
-      rd: body.latest_stat_by_country[0].record_date
-    });
+    // var b = JSON.parse()
+    if (Object.keys(body.latest_stat_by_country).length === 0) {
+      return res.render("search", {
+        err: "Check Spelling or result not Found"
+      });
+    } else {
+      res.render("search", {
+        country: body.country,
+        tc: body.latest_stat_by_country[0].total_cases,
+        nc: body.latest_stat_by_country[0].new_cases,
+        ac: body.latest_stat_by_country[0].active_cases,
+        td: body.latest_stat_by_country[0].total_deaths,
+        nd: body.latest_stat_by_country[0].new_deaths,
+        trc: body.latest_stat_by_country[0].total_recovered,
+        sc: body.latest_stat_by_country[0].serious_critical,
+        tcpm: body.latest_stat_by_country[0].total_cases_per1m,
+        rd: body.latest_stat_by_country[0].record_date
+      });
+    }
   });
 });
 
